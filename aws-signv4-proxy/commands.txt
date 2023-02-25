@@ -1,0 +1,4 @@
+kubectl create secret generic otel-collector-aws-creds \
+  --from-literal=AWS_ACCESS_KEY_ID=VALUE \
+  --from-literal=AWS_SECRET_ACCESS_KEY=VALUE \
+  -n default

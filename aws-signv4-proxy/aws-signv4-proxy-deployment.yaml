@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-signv4-proxy
+  namespace: default
+  labels:
+    app: aws-signv4-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-signv4-proxy
+  template:
+    metadata:
+      labels:
+        app: aws-signv4-proxy
+    spec:
+      containers:
+      - name: aws-signv4-proxy
+        image: public.ecr.aws/aws-observability/aws-sigv4-proxy:1.6.1
+        args:
+        - --name
+        - aps
+        - --region
+        - us-east-1
+        - --host
+        - aps-workspaces.us-east-1.amazonaws.com
+        - --port
+        - :8005
+        envFrom:
+          - secretRef:
+              name: otel-collector-aws-creds
+        ports:
+        - containerPort: 8005
+          protocol: TCP

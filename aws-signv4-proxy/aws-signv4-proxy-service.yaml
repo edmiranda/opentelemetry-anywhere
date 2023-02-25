@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aws-signv4-proxy
+spec:
+  type: ClusterIP
+  selector:
+    app: aws-signv4-proxy
+  ports:
+  - protocol: TCP
+    port: 8005
+    targetPort: 8005
